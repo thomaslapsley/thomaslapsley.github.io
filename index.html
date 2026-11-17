@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TL-01 — Thomas Lapsley — Datasheet</title>
+<meta name="description" content="TL-01: Thomas Lapsley, electronics & hardware engineer. Datasheet, Rev A.">
+<style>
+  :root {
+    --paper: #fbfaf6; --ink: #0c0c0c; --rule: #0c0c0c; --tint: #ecebe4;
+    --hot: #d93a00;   /* international orange: emphasis, links */
+    --ok: #006b3a; --hold: #8a5a00;
+    --mono: "JetBrains Mono", "IBM Plex Mono", "Cascadia Mono", Consolas, Menlo, ui-monospace, monospace;
+    --u: 0.5rem;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 3.5rem; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 0.875rem/1.45 var(--mono); }
+  a { color: var(--hot); text-underline-offset: 0.15em; }
+  a:focus-visible { outline: 3px solid var(--hot); outline-offset: 2px; }
+  .sheet { max-width: 76rem; margin: 0 auto; padding: 0 calc(var(--u) * 2) calc(var(--u) * 4); }
+
+  /* --- running header --- */
+  .run { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 2rem; padding: var(--u) 0; border-bottom: 1px solid var(--rule); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .title { display: grid; grid-template-columns: auto 1fr auto; gap: calc(var(--u) * 3); align-items: end; padding: calc(var(--u) * 2) 0; border-bottom: 4px solid var(--rule); }
+  .title .pn { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; margin: 0; }
+  .title h1 { font-size: 1.125rem; line-height: 1.3; margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+  .title h1 small { display: block; font-size: 0.875rem; font-weight: 400; letter-spacing: 0; text-transform: none; }
+  .bars { display: grid; grid-template-columns: repeat(7, 1.1rem); height: 2.6rem; border: 1px solid var(--rule); }
+  .bars i:nth-child(1) { background: #fff; } .bars i:nth-child(2) { background: #f5d400; } .bars i:nth-child(3) { background: #00a7c7; }
+  .bars i:nth-child(4) { background: #00954a; } .bars i:nth-child(5) { background: #c2187a; } .bars i:nth-child(6) { background: #d93a00; } .bars i:nth-child(7) { background: #0c0c0c; }
+
+  nav.toc { background: var(--paper); border-bottom: 1px solid var(--rule); padding: var(--u) 0; display: flex; flex-wrap: wrap; gap: 0 1.25rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  nav.toc a { color: var(--ink); padding: 0.2rem 0; white-space: nowrap; }
+  nav.toc a:hover { color: var(--hot); }
+
+  /* --- body: two columns, like every datasheet since 1975 --- */
+  .cols { columns: 2 30rem; column-gap: calc(var(--u) * 4); column-rule: 1px solid var(--rule); padding-top: calc(var(--u) * 2); }
+  .highlight-group { position: relative; }
+  section { break-inside: avoid; margin: 0 0 calc(var(--u) * 3); }
+  h2 { font-size: 0.875rem; margin: 0 0 var(--u); padding: 0.2rem 0.4rem; background: var(--ink); color: var(--paper); text-transform: uppercase; letter-spacing: 0.08em; }
+  h2 span { display: inline-block; min-width: 2.2em; }
+  p { margin: 0 0 var(--u); }
+  ul.f { margin: 0; padding: 0 0 0 1.4em; list-style: square; }
+  ul.f li::marker { color: var(--hot); }
+  ul.f ul { padding-left: 1.4em; list-style: "– "; }
+
+  .highlight-group::before { content: ""; position: absolute; inset: -8px; background-color: #d5d5d5; z-index: -1; border-radius: 5px; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 var(--u); font-variant-numeric: tabular-nums; }
+  caption { caption-side: top; text-align: left; font-weight: 700; padding: 0 0 0.25rem; }
+  th, td { border: 1px solid var(--rule); padding: 0.2rem 0.4rem; text-align: left; vertical-align: top; }
+  thead th { background: var(--tint); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
+  td.n, th.n { text-align: right; white-space: nowrap; }
+  .st { font-weight: 700; white-space: nowrap; }
+  .st.act { color: var(--ok); } .st.prior { color: var(--hold); } .st.nr { color: var(--hot); }
+  .note { font-size: 0.75rem; margin: 0 0 var(--u); }
+  figure { margin: 0 0 var(--u); border: 1px solid var(--rule); padding: var(--u); }
+  figure svg { display: block; width: 100%; height: auto; max-width: 30rem; margin: 0 auto; }
+  figcaption { font-weight: 700; text-align: center; padding-top: 0.25rem; }
+  
+
+  footer { border-top: 4px solid var(--rule); padding-top: var(--u); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 2rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  footer a[aria-current] { background: var(--ink); color: var(--paper); text-decoration: none; padding: 0 0.3em; }
+
+  @media (max-width: 40rem) {
+    .title { grid-template-columns: 1fr auto; }
+    .title h1 { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media print { nav.toc { position: static; } body { font-size: 8pt; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="run"><span>Lapsley Electronics &amp; Hardware</span><span>Doc. TL-01-DS</span><span>Rev A — 2026-11-17</span><span>Status: Preliminary</span></div>
+
+  <header class="title">
+    <p class="pn">TL-01</p>
+    <h1>Thomas Lapsley <small>Electronics &amp; hardware engineer. Single unit, mobile, open-source compatible.</small></h1>
+    <div class="bars" role="img" aria-label="Colour reference strip"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </header>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#s1">1 Features</a><a href="#s2">2 Applications</a><a href="#s3">3 Description</a><a href="#s4">4 Pin configuration</a>
+    <a href="#s5">5 Operating conditions</a><a href="#s6">6 Characteristics</a><a href="#s7">7 Document register</a>
+    <a href="#s8">8 Field deployment</a><a href="#s9">9 Revision history</a><a href="#s10">10 Colophon</a>
+  </nav>
+    <main class="cols">
+      <div class="highlight-group">
+        <section id="s1">
+          <h2><span>1</span>Features</h2>
+          <ul class="f">
+            <li>Ultra-low-voltage (ULV) circuit design</li>
+            <li>Signal processing, both kinds:
+              <ul><li>analog</li><li>digital</li></ul></li>
+            <li>Low-power design under real power budgets</li>
+            <li>Design for manufacture at scale</li>
+            <li>PCB design</li>
+            <li>Prior exposure: FPGA, EMC design, IoT firmware</li>
+            <li>Open-source enthusiast</li>
+            <li>Disassembles equipment to determine principle of operation. Continuous since early production; no shutdown mode provided.</li>
+          </ul>
+        </section>
+
+        <section id="s2">
+          <h2><span>2</span>Applications</h2>
+          <ul class="f">
+            <li>PCB design and review</li>
+            <li>Teardowns and write-ups of interesting hardware</li>
+            <li>Open-source hardware collaboration</li>
+            <li>Conversation about electronics, for whatever reason</li>
+          </ul>
+        </section>
+
+        <section id="s3">
+          <h2><span>3</span>Description</h2>
+          <p>The TL-01 is an electronics and hardware engineer for whom electronics is both hobby and career. The unit has been pulling things apart to figure out how they work since it was young and has yet to stop.</p>
+          <p>Anything ULV with digital or analog signal processing, low-power demands, or scaling-to-manufacture concerns is within the primary operating region. The unit will also operate outside that region whenever something piques its interest.</p>
+          <p>The TL-01 is currently increasing its online footprint in order to publish interesting tidbits and PCB design work, and to collaborate with others who share the interest. This document is part of that effort.</p>
+        </section>
+      </div>
+      <section id="s4">
+      <h2><span>4</span>Pin configuration and functions</h2>
+      <figure>
+        <svg viewBox="0 0 360 170" role="img" aria-label="Eight-pin package, top view. Pins: 1 GITHUB, 2 EMAIL, 3 WEB, 4 GND, 5 RSVD, 6 NC, 7 NC, 8 VAN." font-family="inherit" font-size="11" fill="currentColor" stroke="currentColor">
+          <rect x="130" y="15" width="100" height="140" fill="none" stroke-width="2"/>
+          <path d="M168 15a12 12 0 0 0 24 0" fill="none" stroke-width="2"/>
+          <circle cx="142" cy="30" r="3"/>
+          <g stroke-width="2">
+            <path d="M100 40h30M100 73h30M100 106h30M100 139h30M230 40h30M230 73h30M230 106h30M230 139h30"/>
+          </g>
+          <g stroke="none">
+            <text x="94" y="44" text-anchor="end">GITHUB</text><text x="94" y="77" text-anchor="end">EMAIL</text>
+            <text x="94" y="110" text-anchor="end">WEB</text><text x="94" y="143" text-anchor="end">GND</text>
+            <text x="266" y="44">VAN</text><text x="266" y="77">NC</text><text x="266" y="110">NC</text><text x="266" y="143">RSVD</text>
+            <text x="137" y="44">1</text><text x="137" y="77">2</text><text x="137" y="110">3</text><text x="137" y="143">4</text>
+            <text x="223" y="44" text-anchor="end">8</text><text x="223" y="77" text-anchor="end">7</text><text x="223" y="110" text-anchor="end">6</text><text x="223" y="143" text-anchor="end">5</text>
+            <text x="180" y="90" text-anchor="middle" font-weight="700">TL-01</text><text x="180" y="104" text-anchor="middle">TOP VIEW</text>
+          </g>
+        </svg>
+        <figcaption>Figure 1. 8-pin package, top view (not to scale)</figcaption>
+      </figure>
+      <table>
+        <caption>Table 1. Pin functions</caption>
+        <thead><tr><th class="n">Pin</th><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>GITHUB</td><td>I/O</td><td><a href="https://github.com/thomaslapsley">github.com/thomaslapsley</a>. Preferred channel for anything involving source.</td></tr>
+          <tr><td class="n">2</td><td>EMAIL</td><td>I/O</td><td><!-- TODO: replace with your real address --><a href="mailto:hello@example.com">hello@example.com</a> <span class="st nr">PLACEHOLDER</span></td></tr>
+          <tr><td class="n">3</td><td>WEB</td><td>O</td><td><a href="https://thomaslapsley.github.io">thomaslapsley.github.io</a>. You are reading its output.</td></tr>
+          <tr><td class="n">4</td><td>GND</td><td>—</td><td>Ground. Presently Australian.</td></tr>
+          <tr><td class="n">5</td><td>RSVD</td><td>—</td><td>Reserved for future channels. Leave unconnected.</td></tr>
+          <tr><td class="n">6, 7</td><td>NC</td><td>—</td><td>No connection.</td></tr>
+          <tr><td class="n">8</td><td>VAN</td><td>PWR</td><td>Supply and enclosure. See section 8.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="s5">
+      <h2><span>5</span>Operating conditions</h2>
+      <table>
+        <caption>Table 2. Present operating conditions</caption>
+        <thead><tr><th>Parameter</th><th>Value</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Location</td><td>Australia</td><td>Mobile. Exact position not specified.</td></tr>
+          <tr><td>Enclosure</td><td>Campervan</td><td>Quantity 1</td></tr>
+          <tr><td>Deployment duration</td><td class="n">12 months</td><td>Nominal</td></tr>
+          <tr><td>Time zone</td><td class="n">UTC+8 to UTC+11</td><td>Varies with longitude and season</td></tr>
+          <tr><td>Response latency</td><td>TBD</td><td>Function of mobile coverage. No maximum is guaranteed.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="s6">
+      <h2><span>6</span>Characteristics</h2>
+      <table>
+        <caption>Table 3. Areas of operation</caption>
+        <thead><tr><th>Domain</th><th>Class</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Ultra-low-voltage design</td><td class="st act">PRIMARY</td><td>Right up the unit's alley</td></tr>
+          <tr><td>Analog signal processing</td><td class="st act">PRIMARY</td><td></td></tr>
+          <tr><td>Digital signal processing</td><td class="st act">PRIMARY</td><td></td></tr>
+          <tr><td>Low-power design</td><td class="st act">PRIMARY</td><td></td></tr>
+          <tr><td>Manufacturing at scale</td><td class="st act">PRIMARY</td><td></td></tr>
+          <tr><td>PCB design</td><td class="st act">PRIMARY</td><td>Publication pending, see Table 4</td></tr>
+          <tr><td>FPGA</td><td class="st prior">PRIOR</td><td>Previously dabbled</td></tr>
+          <tr><td>EMC design</td><td class="st prior">PRIOR</td><td>Previously dabbled</td></tr>
+          <tr><td>IoT firmware</td><td class="st prior">PRIOR</td><td>Previously dabbled</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Class key: <b class="st act">PRIMARY</b> = stated core interest. <b class="st prior">PRIOR</b> = worked in previously. Typical values are deliberately not given; ask.</p>
+    </section>
+
+    <section id="s7">
+      <h2><span>7</span>Document register</h2>
+      <table>
+        <caption>Table 4. Related documents</caption>
+        <thead><tr><th>Doc. ID</th><th>Title</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>TL-PCB</td><td>PCB design portfolio</td><td class="st nr">NOT RELEASED</td></tr>
+          <tr><td>TL-TDN</td><td>Teardowns and interesting tidbits</td><td class="st nr">NOT RELEASED</td></tr>
+          <tr><td>TL-OSH</td><td>Open-source hardware</td><td class="st nr">NOT RELEASED</td></tr>
+          <tr><td>TL-01-DS</td><td>This datasheet</td><td class="st act">RELEASED, REV A</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Unreleased documents have no scheduled date. They will be listed here with links when they exist, and not before.</p>
+    </section>
+
+    <section id="s8">
+      <h2><span>8</span>Field deployment</h2>
+      <p>The unit is on a year-long campervan trip around Australia. Notes, photographs and records of roadside repairs will be published under this section.</p>
+      <table>
+        <caption>Table 5. Deployment log</caption>
+        <thead><tr><th>Date</th><th>Location</th><th>Entry</th></tr></thead>
+        <tbody><tr><td colspan="3">No entries recorded.</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="s9">
+      <h2><span>9</span>Revision history</h2>
+      <table>
+        <thead><tr><th>Rev</th><th>Date</th><th>Change</th></tr></thead>
+        <tbody><tr><td>A</td><td class="n">2026-11-17</td><td>Initial release. Supersedes a page reading “Work in progress”.</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="s10">
+      <h2><span>10</span>Colophon</h2>
+      <table>
+        <caption>Table 6. How this page is built</caption>
+        <tbody>
+          <tr><th>Source</th><td>1 HTML file, CSS inline</td></tr>
+          <tr><th>JavaScript</th><td>None</td></tr>
+          <tr><th>Web fonts</th><td>None. Uses the first monospace face your system has.</td></tr>
+          <tr><th>Images</th><td>1 inline SVG (Figure 1)</td></tr>
+          <tr><th>Requests</th><td class="n">1</td></tr>
+          <tr><th>Hosting</th><td>GitHub Pages</td></tr>
+          <tr><th>Print</th><td>Supported. It is a datasheet.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <span>TL-01-DS Rev A</span>
+    <span>© Thomas Lapsley</span>
+  </footer>
+</div>
+</body>
+</html>
